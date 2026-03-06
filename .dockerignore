@@ -1,0 +1,33 @@
+# Maven target directory (except jar copied manually)
+target/
+
+# Exclude everything except JAR (if needed)
+!target/*.jar
+
+# IDE settings
+.idea/
+*.iml
+.vscode/
+
+# Git folder
+.git/
+.gitignore
+
+# Logs
+logs/
+*.log
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Node modules (if any UI)
+node_modules/
+
+# Temporary files
+*.tmp
+*.bak
+
+# Test output
+surefire-reports/
+test-output/

@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Campaign Dashboard</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<h1>Campaign Dashboard</h1>
+
+<label>Select Campaign</label>
+<select id="campaignDropdown">
+  <option value="">Select Campaign</option>
+</select>
+
+<button onclick="loadDashboard()">View Dashboard</button>
+
+<br><br>
+
+<table border="1" id="dashboardTable">
+
+  <thead>
+  <tr>
+    <th>Campaign Name</th>
+    <th>Status</th>
+    <th>Total Recipients</th>
+    <th>Sent</th>
+    <th>Failed</th>
+  </tr>
+  </thead>
+
+  <tbody>
+  </tbody>
+
+</table>
+
+<script>
+
+// Load campaigns into dropdown
+fetch("/api/campaigns")
+.then(res => res.json())
+.then(data => {
+
+const dropdown = document.getElementById("campaignDropdown");
+
+data.forEach(campaign => {
+
+let option = document.createElement("option");
+option.value = campaign.id;
+option.text = campaign.campaignName;
+
+dropdown.appendChild(option);
+
+});
+
+});
+
+
+// Load dashboard data
+function loadDashboard(){
+
+const campaignId = document.getElementById("campaignDropdown").value;
+
+if(!campaignId){
+alert("Select campaign");
+return;
+}
+
+fetch("/api/dashboard/" + campaignId)
+
+.then(res => res.json())
+
+.then(data => {
+
+const tableBody = document.querySelector("#dashboardTable tbody");
+
+tableBody.innerHTML = "";
+
+let row = `<tr>
+<td>${data.campaignName}</td>
+<td>${data.campaignStatus}</td>
+<td>${data.totalRecipients}</td>
+<td>${data.sentCount}</td>
+<td>${data.failedCount}</td>
+</tr>`;
+
+tableBody.innerHTML = row;
+
+});
+
+}
+
+</script>
+
+</body>
+</html>

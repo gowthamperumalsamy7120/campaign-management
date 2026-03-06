@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Create Campaign</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<h2>Create Campaign</h2>
+
+<form id="campaignForm">
+
+  <label>Campaign Name</label>
+  <input type="text" id="campaignName" required>
+
+  <label>Subject</label>
+  <input type="text" id="subjectLine" required>
+
+  <label>Email Content</label>
+  <textarea id="emailContent"></textarea>
+
+  <label>Schedule Time</label>
+  <input type="datetime-local" id="scheduledTime">
+
+  <label>Status</label>
+  <select id="status">
+    <option value="DRAFT">Draft</option>
+    <option value="SCHEDULED">Scheduled</option>
+    <option value="IN_PROGRESS">In Progress</option>
+    <option value="COMPLETED">Completed</option>
+  </select>
+
+  <button type="submit">Create Campaign</button>
+
+</form>
+
+<script>
+
+document.getElementById("campaignForm").addEventListener("submit", function(e){
+
+e.preventDefault();
+
+const localTime = document.getElementById("scheduledTime").value;
+
+const campaign = {
+
+campaignName: document.getElementById("campaignName").value,
+subjectLine: document.getElementById("subjectLine").value,
+emailContent: document.getElementById("emailContent").value,
+scheduledTime: new Date(localTime).toISOString(),
+status: document.getElementById("status").value
+
+};
+
+fetch("/api/campaigns", {
+
+method: "POST",
+headers: {
+"Content-Type": "application/json"
+},
+body: JSON.stringify(campaign)
+
+})
+.then(res => res.json())
+.then(data => alert("Campaign Created"));
+
+});
+
+</script>
+
+</body>
+</html>

@@ -1,0 +1,32 @@
+# Maven target directory
+/target/
+
+# IntelliJ IDEA
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# VS Code
+.vscode/
+
+# Logs
+logs/
+*.log
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# JAR files
+*.jar
+
+# Temporary files
+*.tmp
+*.bak
+
+# Spring Boot-specific
+.spring-boot-devtools.properties
+
+# Docker ignore
+docker-compose.override.yml

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Execute Campaign</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<h1>Execute Campaign</h1>
+
+<label>Select Campaign</label>
+<select id="campaignDropdown">
+  <option value="">Select Campaign</option>
+</select>
+
+<br><br>
+
+<button onclick="executeCampaign()">Execute Campaign</button>
+
+<p id="result"></p>
+
+<script>
+
+// Load campaigns
+fetch("/api/campaigns")
+.then(res => res.json())
+.then(data => {
+
+const dropdown = document.getElementById("campaignDropdown");
+
+data.forEach(campaign => {
+
+let option = document.createElement("option");
+option.value = campaign.id;
+option.text = campaign.campaignName;
+
+dropdown.appendChild(option);
+
+});
+
+});
+
+
+// Execute campaign
+function executeCampaign(){
+
+const campaignId = document.getElementById("campaignDropdown").value;
+
+if(!campaignId){
+alert("Please select campaign");
+return;
+}
+
+fetch("/api/execute/" + campaignId, {
+method: "POST"
+})
+.then(res => res.json())
+.then(data => {
+
+document.getElementById("result").innerText =
+data.message || "Campaign executed successfully";
+
+});
+
+}
+
+</script>
+
+</body>
+</html>
