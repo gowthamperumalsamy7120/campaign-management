@@ -79,7 +79,3 @@ Follows standard layered architecture:
 
 Using Maven:
 mvn spring-boot:run
-
-
-docker build -t gowthamperumalsamy/campaign-management:latest .
-docker push gowthamperumalsamy/campaign-management:latest 
